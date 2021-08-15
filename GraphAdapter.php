@@ -142,12 +142,32 @@ class GraphRender {
 
                  $ans = ($salary - $this->min ) * $ratio;
 
-                 echo"<tr><td>". $name ."</td><td><img src='yellow.png' width=".$ans." height='50'></td></tr>";
+                 if($ans == 0) $ans = 10;
+
+                 echo"<tr><td>". $name ."</td><td><img src='yellow.jpg' width=".$ans." height='50'></td></tr>";
 
              }
 
              echo"</table>";
 
+
+             echo"<table><tr>";
+
+             for($i = 0; $i < $n; $i++) {
+
+                 $name = $this->adapter->getName($i);
+
+                 $salary = $this->adapter->getValue($i);
+
+                 $ans = ($salary - $this->min ) * $ratio;
+
+                 if($ans == 0) $ans = 10;
+
+                 echo"<td><img src='green.png' width='50' height='".$ans."'></td><td>".$name."</td>";
+
+             }
+
+             echo"</tr></table>";
       }
 
       public function TextRender() {
