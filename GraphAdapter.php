@@ -34,7 +34,7 @@ class RecordList {
 
    public function __construct() {
 
-      $this->records[] = new Record("Adrian","Mathematique",28,67000);
+      $this->records[] = new Record("Adrian","Mathematique",28,47000);
 
       $this->records[] = new Record("Surasky","Mathematique",28,70050);
 
@@ -42,7 +42,9 @@ class RecordList {
 
       $this->records[] = new Record("Eistein","Mathematique",28,25000);
 
-      $this->records[] = new Record("Newton","Mathematique",28,19000);
+      $this->records[] = new Record("Newton","Mathematique",28,47000);
+
+      $this->records[] = new Record("Pappilon","Philosophi",28,13000);
    }
 
    public function getRecords() {
@@ -121,7 +123,9 @@ class GraphRender {
       }
 
       public function WebRender() {
+
              $this->getMin();
+
              $this->getMax();
 
              $ratio = 200 / ($this->max - $this->min);
@@ -148,6 +152,34 @@ class GraphRender {
 
       public function TextRender() {
 
+             $this->getMin();
+
+             $this->getMax();
+
+             $ratio = 40 / ($this->max - $this->min);
+
+             $n = $this->adapter->getCount();
+
+             echo"\n";
+
+             for($i = 0; $i < $n; $i++) {
+
+                 $name = $this->adapter->getName( $i );
+
+                 $salary = $this->adapter->getValue( $i );
+
+                 $ans = ($salary - $this->min ) * $ratio;
+
+                 if($ans == 0) $ans = 1;
+
+                 echo(sprintf("%11s ", $name));
+
+                 for($j = 1; $j <= $ans;$j++) {
+
+                    echo"*";
+                 }
+                 echo"\n";
+              }
 
       }
 
@@ -159,6 +191,13 @@ $adapter = new GraphAdapter( $data );
 
 $obj = new GraphRender( $adapter );
 
-$obj->WebRender();
+if(php_sapi_name() != 'cli') {
+
+  $obj->WebRender();
+
+} else {
+
+  $obj->TextRender();
+}
 ?>
 </html>
